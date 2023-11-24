@@ -1,0 +1,117 @@
+UCI
+
+stockFish.stdin = 'uci';
+stockFish.stdin = 'setoption name UCI_LimitStrength value true';
+stockFish.stdin = 'setoption name UCI_Elo value $ELO_level';
+stockFish.stdin = 'ucinewgame';
+
+$ELO_level:
+    level 1: 1350
+    level 2: 1564
+    level 3: 1778
+    level 4: 1992
+    level 5: 2207
+    level 6: 2421
+    level 7: 2635
+    level 8: 2850
+
+
+stockFish.stdin = 'position startpos moves ${movesPosition.join(' ')}';
+stockFish.stdin = 'go depth $depth movetime $time';
+
+  AiBotConfig(
+    level:1
+    depth: 5,
+    time: 1000,
+  ),
+  AiBotConfig(
+    level: 2,
+    depth: 5,
+    time: 2000,
+  ),
+  AiBotConfig(
+    level: 3,
+    depth: 5,
+    time: 3000,
+  ),
+  AiBotConfig(
+    level: 4,
+    depth: 5,
+    time: 4000,
+  ),
+  AiBotConfig(
+    level: 5,
+    depth: 5,
+    time: 5000,
+  ),
+  AiBotConfig( 
+    level: 6,
+    depth: 8,
+    time: 6000,
+  ),
+  AiBotConfig(
+    level: 7,
+    depth: 13,
+    time: 7000,
+  ),
+  AiBotConfig(
+    level: 8,
+    depth: 22,
+    time: 8000,
+  ),
+];
+
+------------------------
+Universal Chess Interface
+
+uci                 // Initialize the engine and enter UCI mode
+isready             // Check if the engine is ready to accept commands
+ucinewgame          // Tell the engine to start a new game
+position startpos   // Set up the initial position
+go                  // Start calculating on the current position
+
+// To specify moves from the starting position:
+position startpos moves e2e4 e7e5 g1f3
+
+// To specify a custom position using FEN string:
+position fen rnbqkbnr/pppppppp/8/8/8/8/PPP1PPPP/RNBQKBNR w KQkq - 0 1
+
+// To tell the engine to think for a certain amount of time before making a move:
+go movetime 5000   // Think for 5000 milliseconds (5 seconds)
+
+---------------
+position startpos
+position startpos moves e2e4 e7e5
+position moves e2e4
+
+bestmove e7e5 ponder g1f3
+
+setoption name Skill Level value 0
+setoption name Skill Level value 20
+
+go depth 10
+
+go depth {depth_limit} movetime {time_limit}
+
+go depth 10 movetime 3000
+go depth 20 movetime 4000
+
+
+-----
+uci
+setoption name Skill Level value 10 // Set ELO skill level equivalent
+setoption name Depth value 20 // Set a fixed depth of 20 half-moves
+setoption name MoveTime value 5000 // Set a move time limit of 5 seconds (5000 ms)
+isready
+position fen rnbqkbnr/ppp1pppp/8/3p4/8/4P3/PPPP1PPP/RNBQKBNR w KQkq - 0 2 // Example FEN position
+go
+
+-------------
+
+uci
+setoption name Skill Level value 10 // Set ELO skill level equivalent
+setoption name Depth value 20 // Set a fixed depth of 20 half-moves
+setoption name MoveTime value 5000 // Set a move time limit of 5 seconds (5000 ms)
+isready
+position startpos moves e2e4 e7e5
+go
